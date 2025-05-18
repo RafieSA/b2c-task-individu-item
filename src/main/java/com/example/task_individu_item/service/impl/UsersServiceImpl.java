@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Service
@@ -22,10 +25,14 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public String createUser(UsersRequest usersRequest) {
-        usersRepository.findById(String.valueOf(usersRequest.getId())).orElseThrow(() -> new BusinessException(HttpStatus.BAD_REQUEST, GlobalErrorMapping.ERROR));
+        if (usersRepository.findById(String.valueOf(usersRequest.getId())).isPresent()) {
+            throw new BusinessException(HttpStatus.BAD_REQUEST, GlobalErrorMapping.ID_ALREADY_EXISTS);
+        }
         Users users = Users.builder()
                 .id(usersRequest.getId())
                 .fullName(usersRequest.getFullName())
+                .createdAt(Timestamp.from(Instant.now()))
+                .isDeleted(Boolean.FALSE)
                 .build();
         usersRepository.save(users);
         return "success create user";
