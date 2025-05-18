@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
+@Entity
 @Table(name = "transactions")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +25,7 @@ public class Transactions {
 
     @ManyToOne
     @JoinColumn(name = "created_by", referencedColumnName = "id")
-    private Long createdBy;
+    private Users createdBy;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
@@ -33,7 +34,7 @@ public class Transactions {
     private Timestamp updatedAt;
 
     @Column(name = "is_deleted")
-    private Builder isDeleted;
+    private Boolean isDeleted;
 
     @Column(name = "item_inventory_id")
     private Long itemInventoryId;

@@ -22,7 +22,7 @@ public class ItemsInventories {
 
     @ManyToOne
     @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = false)
-    private Long itemId;
+    private Items items;
 
     @Column(name = "price")
     private BigDecimal price;
