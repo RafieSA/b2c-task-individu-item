@@ -8,5 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class UsersRequest {
+    private Long id;
     private String fullName;
 }

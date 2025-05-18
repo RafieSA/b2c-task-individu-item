@@ -28,4 +28,7 @@ public class Users {
 
     @Column(name = "created_at")
     private Timestamp createdAt;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 }
