@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class ItemsRequest {
+    private Long id;
     private String code;
     private String name;
 }
