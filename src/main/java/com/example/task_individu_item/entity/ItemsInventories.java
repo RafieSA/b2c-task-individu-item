@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+@Table(name = "items_inventories")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +18,7 @@ import java.sql.Timestamp;
 public class ItemsInventories {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

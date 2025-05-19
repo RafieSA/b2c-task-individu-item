@@ -1,8 +1,11 @@
 package com.example.task_individu_item.service.impl;
 
+import com.example.task_individu_item.dto.ItemsInventoriesRequest;
 import com.example.task_individu_item.dto.ItemsRequest;
 import com.example.task_individu_item.dto.UsersRequest;
 import com.example.task_individu_item.entity.Items;
+import com.example.task_individu_item.entity.ItemsInventories;
+import com.example.task_individu_item.repository.ItemsInventoriesRepository;
 import com.example.task_individu_item.repository.ItemsRepository;
 import com.example.task_individu_item.service.ItemsService;
 import com.example.task_individu_item.utils.exception.BusinessException;
@@ -12,6 +15,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -24,6 +28,9 @@ public class ItemsServiceImpl implements ItemsService {
     @Autowired
     ItemsRepository itemsRepository;
 
+    @Autowired
+    ItemsInventoriesRepository itemsInventoriesRepository;
+
     @Override
     public String createItem(ItemsRequest itemsRequest) {
         if (itemsRepository.findById(String.valueOf(itemsRequest.getId())).isPresent()) {
@@ -31,14 +38,32 @@ public class ItemsServiceImpl implements ItemsService {
         }
         Items items = Items.builder()
                 .id(itemsRequest.getId())
-//                .code(usersRequest.)
+                .code(itemsRequest.getCode())
                 .name(itemsRequest.getName())
                 .createdAt(Timestamp.from(Instant.now()))
                 .updatedAt(Timestamp.from(Instant.now()))
-                .isDeleted(Boolean.FALSE)
+                .isDeleted(false)
                 .build();
         itemsRepository.save(items);
-        return "success create item";
+
+        ItemsInventories itemsInventories = ItemsInventories.builder()
+                .price(itemsRequest.getPrice())
+                .quantity(itemsRequest.getQuantity())
+                .createdAt(Timestamp.from(Instant.now()))
+                .updatedAt(Timestamp.from(Instant.now()))
+                .isDeleted(false)
+                .items(items)
+                .build();
+
+        items.setItemsInventories(List.of(itemsInventories));
+
+        itemsRepository.save(items);
+
+        return "success create item & inventory";
+//        ItemsInventories itemsInventories = ItemsInventories.builder()
+//                .id(itemsinventoriesr)
+//                .build();
+//        return "success create item";
     }
 
     @Override

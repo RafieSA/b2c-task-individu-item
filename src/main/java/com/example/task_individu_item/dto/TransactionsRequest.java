@@ -8,9 +8,10 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class TransactionsRequest {
+    private Long id;
     private String trxCode;
     private Integer quantity;
     private Integer price;
     private Long itemInventoryId;
-
+    private Long createdBy;
 }

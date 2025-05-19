@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class ItemsInventoriesRequest {
+    private Long id;
     private Long itemId;
     private BigDecimal price;
     private Integer quantity;

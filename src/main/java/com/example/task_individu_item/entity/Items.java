@@ -1,16 +1,18 @@
 package com.example.task_individu_item.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+
 import java.sql.Time;
 import java.sql.Timestamp;
 
+@Table(name = "items")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,4 +37,7 @@ public class Items {
 
     @Column(name = "is_deleted")
     private Boolean isDeleted;
+
+    @OneToMany(mappedBy = "items", cascade = CascadeType.ALL)
+    private List<ItemsInventories> itemsInventories;
 }

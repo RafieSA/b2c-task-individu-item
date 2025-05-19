@@ -6,6 +6,8 @@ public enum GlobalErrorMapping {
     ERROR("1", "ERROR"),
     ID_ALREADY_EXISTS("IEG-0012", "User dengan ID tersebut ada di database, beri ID lain."),
     ITEM_ID_ALREADY_EXISTS("IEG-0013", "Item dengan ID tersebut ada di database, beri ID lain."),
+    ID_ITEM_NOT_FOUND("IEG-0014", "Item dengan ID tersebut tidak ada di database, beri ID lain."),
+
     ;
 
 
